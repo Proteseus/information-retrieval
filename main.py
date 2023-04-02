@@ -70,7 +70,7 @@ async def fetch_blog(url: str) -> dict:
         'title': title.text,
         'date': date_.text,
         'story': story,
-        'author': stories[-2],
+        'author': stories[-2].text,
         'url': url
     }
 
