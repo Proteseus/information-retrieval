@@ -31,13 +31,19 @@ wordList.forEach((word) => {
   });
 });
 
-// Calculate and add IDF
+// Calculate and add DF
 for (let word in wordMap) {
   count = 0;
   for (var i = 0; i < functionalCorpus.length; i++) {
     if (wordMap[word][i] > 0) count++;
   }
   wordMap[word]["DF"] = count;
+}
+
+// Calculate and add IDF
+var documentCount = functionalCorpus.length;
+for (let word in wordMap) {
+  wordMap[word]["IDF"] = Math.log2(documentCount / wordMap[word]["DF"]);
 }
 
 // Write Functional Corpus
