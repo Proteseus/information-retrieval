@@ -1,5 +1,4 @@
-try {
-//   var pressRelease = fs.writeSync("./corpus/test.json", JSON.stringify(displayCorpus));
-// } catch (err) {
-//   throw err;
-// }
+    wordMap[word][IDF] = wordMap[word].reduce((count, TF) => {
+      count += TF;
+      return count;
+    }, 0);

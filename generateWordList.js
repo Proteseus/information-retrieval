@@ -7,6 +7,7 @@ try {
   throw err;
 }
 
+// Push every word in every document into mergedWords
 var mergedWords = [];
 functionalCorpus.forEach((news) => {
   news.index.forEach((word) => {
@@ -14,19 +15,30 @@ functionalCorpus.forEach((news) => {
   });
 });
 
+// Get only the unique words
 var wordList = new Set(mergedWords);
 
+// Calculate and add TF
 var wordMap = {};
-
 wordList.forEach((word) => {
   wordMap[word] = {};
   functionalCorpus.forEach((news, index) => {
-    wordMap[word][index] = news.index.reduce((count, indexWord) => {
-      if (indexWord == word) count++;
-      return count;
-    }, 0);
+    wordMap[word][index] =
+      news.index.reduce((count, indexWord) => {
+        if (indexWord == word) count++;
+        return count;
+      }, 0) / news.index.length;
   });
 });
+
+// Calculate and add IDF
+for (let word in wordMap) {
+  count = 0;
+  for (var i = 0; i < functionalCorpus.length; i++) {
+    if (wordMap[word][i] > 0) count++;
+  }
+  wordMap[word]["DF"] = count;
+}
 
 // Write Functional Corpus
 fs.writeFile("wordMap.json", JSON.stringify(wordMap, null, 2), "utf8", (err) => {
@@ -36,6 +48,3 @@ fs.writeFile("wordMap.json", JSON.stringify(wordMap, null, 2), "utf8", (err) => 
   }
   console.log("word map generated");
 });
-
-// console.log(JSON.stringify(wordList));
-// console.log(wordList);
