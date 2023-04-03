@@ -46,11 +46,29 @@ for (let word in wordMap) {
   wordMap[word]["IDF"] = Math.log2(documentCount / wordMap[word]["DF"]);
 }
 
-// Write Functional Corpus
+// Calculate and add TFIDF
+var wordMapTFIDF = {};
+wordList.forEach((word) => {
+  wordMapTFIDF[word] = {};
+  functionalCorpus.forEach((news, index) => {
+    wordMapTFIDF[word][index] = wordMap[word][index] * wordMap[word]["IDF"];
+  });
+});
+
+// Write word map
 fs.writeFile("wordMap.json", JSON.stringify(wordMap, null, 2), "utf8", (err) => {
   if (err) {
     console.error(err);
     return;
   }
   console.log("word map generated");
+});
+
+// Write word map TFIDF
+fs.writeFile("wordMapTFIDF.json", JSON.stringify(wordMapTFIDF, null, 2), "utf8", (err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log("word map RFIDF` generated");
 });
