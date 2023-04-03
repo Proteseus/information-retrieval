@@ -26,7 +26,7 @@ pressRelease.forEach((news, index) => {
   );
 
   //   Select only unique words
-  uniqueWords = [...new Set(news.story.split(" "))];
+  uniqueWords = news.story.split(" ");
   //   remove the first " "
   uniqueWords.shift();
 

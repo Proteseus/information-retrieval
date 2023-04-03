@@ -1,5 +1,4 @@
 const fs = require("fs");
-
 // Read json from functionalCorpus
 try {
   var functionalCorpus = fs.readFileSync("./corpus/functionalCorpus.json", "utf-8");
@@ -22,12 +21,15 @@ var wordMap = {};
 wordList.forEach((word) => {
   wordMap[word] = {};
   functionalCorpus.forEach((news, index) => {
-    wordMap[word][index] = news.index.includes(word) ? 1 : 0;
+    wordMap[word][index] = news.index.reduce((count, indexWord) => {
+      if (indexWord == word) count++;
+      return count;
+    }, 0);
   });
 });
 
 // Write Functional Corpus
-fs.writeFile("wrodMap.json", JSON.stringify(wordMap, null, 2), "utf8", (err) => {
+fs.writeFile("wordMap.json", JSON.stringify(wordMap, null, 2), "utf8", (err) => {
   if (err) {
     console.error(err);
     return;
