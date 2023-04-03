@@ -1,11 +1,6 @@
 const fs = require("fs");
 // Read json from functionalCorpus
-try {
-  var functionalCorpus = fs.readFileSync("./corpus/functionalCorpus.json", "utf-8");
-  functionalCorpus = JSON.parse(functionalCorpus);
-} catch (err) {
-  throw err;
-}
+functionalCorpus = JSON.parse(fs.readFileSync("./corpus/functionalCorpus.json", "utf-8"));
 
 // Push every word in every document into mergedWords
 var mergedWords = [];
@@ -24,10 +19,7 @@ wordList.forEach((word) => {
   wordMap[word] = {};
   functionalCorpus.forEach((news, index) => {
     wordMap[word][index] =
-      news.index.reduce((count, indexWord) => {
-        if (indexWord == word) count++;
-        return count;
-      }, 0) / news.index.length;
+      news.index.filter((indexWord) => indexWord == word).length / news.index.length;
   });
 });
 
