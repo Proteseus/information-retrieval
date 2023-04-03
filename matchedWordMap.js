@@ -1,27 +1,12 @@
 const fs = require("fs");
 // Read query word map
-try {
-  var query = fs.readFileSync("./queryFunctions/queryWordMap.json", "utf-8");
-  query = JSON.parse(query);
-} catch (err) {
-  throw err;
-}
+query = JSON.parse(fs.readFileSync("./queryFunctions/queryWordMap.json", "utf-8"));
 
 // Read document TFIDF word map
-try {
-  var wordMapTFIDF = fs.readFileSync("./documentFunctions/wordMapTFIDF.json", "utf-8");
-  wordMapTFIDF = JSON.parse(wordMapTFIDF);
-} catch (err) {
-  throw err;
-}
+wordMapTFIDF = JSON.parse(fs.readFileSync("./documentFunctions/wordMapTFIDF.json", "utf-8"));
 
 // Read document word map
-try {
-  var wordMap = fs.readFileSync("./documentFunctions/wordMap.json", "utf-8");
-  wordMap = JSON.parse(wordMap);
-} catch (err) {
-  throw err;
-}
+wordMap = JSON.parse(fs.readFileSync("./documentFunctions/wordMap.json", "utf-8"));
 
 matchedWord = {};
 for (let queryWord in query) {
