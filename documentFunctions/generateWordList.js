@@ -56,19 +56,29 @@ wordList.forEach((word) => {
 });
 
 // Write word map
-fs.writeFile("wordMap.json", JSON.stringify(wordMap, null, 2), "utf8", (err) => {
-  if (err) {
-    console.error(err);
-    return;
+fs.writeFile(
+  "./documentFunctions/wordMap.json",
+  JSON.stringify(wordMap, null, 2),
+  "utf8",
+  (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log("word map generated");
   }
-  console.log("word map generated");
-});
+);
 
 // Write word map TFIDF
-fs.writeFile("wordMapTFIDF.json", JSON.stringify(wordMapTFIDF, null, 2), "utf8", (err) => {
-  if (err) {
-    console.error(err);
-    return;
+fs.writeFile(
+  "./documentFunctions/wordMapTFIDF.json",
+  JSON.stringify(wordMapTFIDF, null, 2),
+  "utf8",
+  (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log("word map RFIDF` generated");
   }
-  console.log("word map RFIDF` generated");
-});
+);
