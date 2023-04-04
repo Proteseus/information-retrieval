@@ -1,1 +1,1 @@
-words.length;
+queryWord

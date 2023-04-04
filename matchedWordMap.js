@@ -8,11 +8,22 @@ wordMapTFIDF = JSON.parse(fs.readFileSync("./documentFunctions/wordMapTFIDF.json
 // Read document word map
 wordMap = JSON.parse(fs.readFileSync("./documentFunctions/wordMap.json", "utf-8"));
 
-matchedWord = {};
+TFIDFMap = {};
 for (let queryWord in query) {
-  matchedWord[queryWord] = {};
-  matchedWord[queryWord] = wordMapTFIDF[queryWord];
-  matchedWord[queryWord]["Q"] = query[queryWord]["Q"] * wordMap[queryWord]["IDF"];
+  TFIDFMap[queryWord] = {};
+  TFIDFMap[queryWord] = wordMapTFIDF[queryWord];
+  TFIDFMap[queryWord]["Q"] = query[queryWord]["Q"] * wordMap[queryWord]["IDF"];
 }
 
-console.log(matchedWord);
+// Find magnitude each word
+var magnitudeMap = {};
+for (word in TFIDFMap) {
+  var count = 0;
+  for (var i = 0; i < 1000; i++) {
+    count = Math.pow(TFIDFMap[word][i], 2);
+  }
+  count += Math.pow(TFIDFMap[word]["Q"], 2);
+  magnitudeMap[word] = Math.sqrt(count);
+}
+
+console.log(magnitudeMap);
