@@ -4,4 +4,4 @@ for (let word in wordMap) {
 //     if (wordMap[word][i] > 0) count++;
 //   }
 //   wordMap[word]["DF"] = wordMap[word].map(index);
-// }
+}
