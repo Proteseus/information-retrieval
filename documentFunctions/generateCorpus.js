@@ -16,7 +16,7 @@ var functionalCorpus = pressRelease.map(({ story }, index) => {
   story = story.replace(/[።:‹›፣፤-]+/g, "");
 
   //   Remove words with numbers or numbers themselves unless they are date format
-  // story = story.replace(/(?<!\bዓ\.ም\s*)\b(?!\d{1,2}\/\d{1,2}(\/\d{2,4})?\b)\S*\d+\S*/g, "");
+  story = story.replace(/(?<!\bዓ\.ም\s*)\b(?!\d{1,2}\/\d{1,2}(\/\d{2,4})?\b)\S*\d+\S*/g, "");
 
   //   split based on space, slice 1 is to remove the first space
   words = story.split(" ").slice(1);
