@@ -1,7 +1,8 @@
-for (let word in wordMap) {
-//   count = 0;
-//   for (var i = 0; i < functionalCorpus.length; i++) {
-//     if (wordMap[word][i] > 0) count++;
-//   }
-//   wordMap[word]["DF"] = wordMap[word].map(index);
-// }
+// Write Display Corpus
+fs.writeFile("./corpus/displayCorpus.json", JSON.stringify(displayCorpus), "utf8", (err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log("Display corpus generated");
+});
