@@ -1,1 +1,1 @@
-  zips[word] = mergedWords.filter((mergedWord) => mergedWord == word).length;
+index
