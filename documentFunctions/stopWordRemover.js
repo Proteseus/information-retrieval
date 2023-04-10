@@ -113,16 +113,17 @@ stop_word_list = [
   "ነው",
 ];
 
-const signs = new RegExp("[“…=,.+<>’—”–!?()|:፡‹›፣፤-]", "g");
+const signs = new RegExp("[“…=,.+<>’—”–!?()|:፡።‹›፣፤-]", "g");
 const multipleSpaces = new RegExp("\\s+", "g");
 const englishWords = new RegExp("[a-zA-Z]+", "g");
 const numberExceptDate = new RegExp(
   "(?<!\\bዓ\\.ም\\s*)\\b(?!\\d{1,2}\\/\\d{1,2}(\\/\\d{2,4})?\\b)\\S*\\d+\\S*",
   "g"
 );
-const fs = require("fs");
-// Read json from functionalCorpus
-functionalCorpus = JSON.parse(fs.readFileSync("./corpus/functionalCorpus.json", "utf-8"));
+
+// const fs = require("fs");
+// // Read json from functionalCorpus
+// functionalCorpus = JSON.parse(fs.readFileSync("./corpus/functionalCorpus.json", "utf-8"));
 
 const getPrunedText = (text) => {
   // Prune signs
@@ -138,18 +139,26 @@ const getPrunedText = (text) => {
   //   Remove stop words and single characters
   splittedText = text.split(" ");
   text = splittedText.filter((word) => !stop_word_list.includes(word) && word.length > 1);
-  return text.join(" ").trim();
+  return text;
 };
 
-functionalCorpus.forEach((document, index) => {
-  document.index = getPrunedText(document.index);
-});
+const PruneCorpus = (corpus) => {
+  corpus.forEach((document, index) => {
+    document.index = getPrunedText(document.index);
+  });
+  return corpus;
+};
 
-// Write pruned corpus
-fs.writeFile("./corpus/pruned.json", JSON.stringify(functionalCorpus, null, 2), "utf8", (err) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  console.log("Pruned corpus generated");
-});
+const PruneQuery = (query) => {
+  return getPrunedText(query);
+};
+
+module.exports = { PruneCorpus, PruneQuery };
+// // Write pruned corpus
+// fs.writeFile("./corpus/pruned.json", JSON.stringify(functionalCorpus, null, 2), "utf8", (err) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log("Pruned corpus generated");
+// });

@@ -1,16 +1,10 @@
 const fs = require("fs");
+const PruneQuery = require("../documentFunctions/stopWordRemover.js").PruneQuery;
 var query =
   "ከኦሮሚያ ክልል ለተውጣጡ ለኮሙኒኬሽን አመራርና ባለሙያዎች ሲሰጥ የነበረውን ሥልጠና አጠናቀቀ:: ሥልጠናው የተሰጠው ወቅቱ የሚፈልጋቸውን የሚዲያና ኮሙኒኬሽን ዘርፎችን መሰረት በማድረግ ሲሆን፤ በቴሌቪዥንና የራዲዮ ፕሮግራም፣ የዶክመንታሪና ፕሮሞሽን ዝግጅት፣ በዜናና የዜና ሀታታ አጻፃፍ፣ በሚዲያና ኮሙኒኬሽን ስትራቴጂና እቅድ እንዲሁም በዲጂታል ኮሙኒኬሽን ዘርፍ እንደሆነ ተገልጿል:: በሥልጠናው ላይ የተገኙት የኢትዮጵያ ፕሬስ ድርጅት የይዘት ዘርፍ ምክትል ስራ አስፈፃሚ አቶ ፍቃዱ ከተማ እንደተናገሩት፤ የሁሉም ቤት የሆነውን የኢትዮጵያን ፕሬስ ድርጅት መርጣችሁ እውቀት እንገበያለን፤ ክፍተታችንን እንሞላለን ብላችሁ";
-// Do Lexical analysis
-// Remove signs
-query = query.replace(/[።:‹›፣፤-]+/g, "");
-//   Remove words with numbers or numbers themselves unless they are date format
-query = query.replace(/(?<!\bዓ\.ም\s*)\b(?!\d{1,2}\/\d{1,2}(\/\d{2,4})?\b)\S*\d+\S*/g, "");
 
-// Split documents with space
-query = query.split(" ");
-//   remove the first " "
-query.shift();
+// Prune Query
+query = PruneQuery(query);
 
 // Get only the unique words
 var wordList = [...new Set(query)];

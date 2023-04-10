@@ -1,5 +1,5 @@
 const fs = require("fs");
-
+const PruneCorpus = require("./stopWordRemover").PruneCorpus;
 // Read json from pressRelease
 var pressRelease = JSON.parse(fs.readFileSync("./pressRelease.json", "utf-8"));
 
@@ -17,6 +17,9 @@ var functionalCorpus = pressRelease.map(({ story }, index) => {
     index: story,
   };
 });
+
+// Prune document
+functionalCorpus = PruneCorpus(functionalCorpus);
 
 // Write Display Corpus
 fs.writeFile("./corpus/displayCorpus.json", JSON.stringify(displayCorpus), "utf8", (err) => {
