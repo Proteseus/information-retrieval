@@ -32,10 +32,12 @@ for (let word in wordMap) {
   wordMap[word]["DF"] = count;
 }
 
+console.log(Math.log10(250 / 9));
+
 // Calculate and add IDF
 var documentCount = functionalCorpus.length;
 for (let word in wordMap) {
-  wordMap[word]["IDF"] = Math.log2(documentCount / wordMap[word]["DF"]);
+  wordMap[word]["IDF"] = Math.log(documentCount / wordMap[word]["DF"]);
 }
 
 // Calculate and add TFIDF
@@ -50,7 +52,7 @@ wordList.forEach((word) => {
 // Write word map
 fs.writeFile(
   "./documentFunctions/wordMap.json",
-  JSON.stringify(wordMap, null, 2),
+  JSON.stringify(wordMap, null, 1),
   "utf8",
   (err) => {
     if (err) {

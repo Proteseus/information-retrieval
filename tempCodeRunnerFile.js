@@ -28,45 +28,29 @@ for (let queryWord in query) {
 var sampleWord = Object.keys(wordMap)[0];
 var documentCount = Object.keys(wordMap[sampleWord]).length - 2;
 
-// Get Dot Product
-var dotProductMap = {};
-for (i = 0; i < documentCount; i++) {
+// Find magnitude each word
+var magnitudeMap = {};
+for (var i = 0; i < documentCount; i++) {
   count = 0;
   for (word in TFIDFMap) {
-    count += (TFIDFMap[word][i] || 0) * TFIDFMap[word]["Q"];
+    // If the word don't exist in our word map, leave the count 0 for the magnitude
+    if (TFIDFMap[word][0]) count += Math.pow(TFIDFMap[word][i], 2);
+  }
+  magnitudeMap[i] = Math.sqrt(count);
+}
+count = 0;
+for (word in TFIDFMap) {
+  count += Math.pow(TFIDFMap[word]["Q"], 2);
+}
+magnitudeMap["Q"] = Math.sqrt(count);
+
+// Find dot product
+var dotProductMap = {};
+for (var i = 0; i < documentCount; i++) {
+  count = 0;
+  for (word in TFIDFMap) {
+    if (TFIDFMap[word][0]) count += TFIDFMap[word][i] * TFIDFMap[word]["Q"];
   }
   dotProductMap[i] = count;
 }
-
-// Get Magnitude
-var magnitudeMap = {};
-for (i = 0; i < documentCount; i++) {
-  magnitude = 0;
-  for (word in TFIDFMap) {
-    magnitude += Math.pow(TFIDFMap[word][i], 2);
-  }
-
-  magnitudeMap[i] = magnitude;
-}
-// Get magnitude for Query
-magnitude = 0;
-for (word in TFIDFMap) {
-  magnitude = +Math.pow(TFIDFMap[word]["Q"], 2);
-}
-magnitudeMap["Q"] = magnitude;
-
-// Get Similarity Map
-var similarityMap = [];
-for (i = 0; i < documentCount; i++) {
-  similarityMap[i] = [i, 0];
-  if (dotProductMap[i] > 0)
-    similarityMap[i] = [i, dotProductMap[i] / Math.sqrt(magnitudeMap[i] * magnitudeMap["Q"])];
-}
-
-// Remove documents with cosine similarity score of 0
-similarityMap = similarityMap.filter((document) => document[1] > 0);
-
-// Sort documents by their cosine similarity score
-similarityMap.sort((a, b) => b[1] - a[1]);
-
-console.log(similarityMap);
+console.log(dotProductMap)
