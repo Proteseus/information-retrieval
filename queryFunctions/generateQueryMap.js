@@ -1,6 +1,6 @@
 const fs = require("fs");
 const PruneQuery = require("../documentFunctions/stopWordRemover.js").PruneQuery;
-var query = "ጥላሁን ገሠሠ ";
+var query = "ጥላሁን ገሠሠ";
 
 // Prune Query
 query = PruneQuery(query);

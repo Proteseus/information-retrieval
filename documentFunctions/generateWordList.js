@@ -32,8 +32,6 @@ for (let word in wordMap) {
   wordMap[word]["DF"] = count;
 }
 
-console.log(Math.log10(250 / 9));
-
 // Calculate and add IDF
 var documentCount = functionalCorpus.length;
 for (let word in wordMap) {
