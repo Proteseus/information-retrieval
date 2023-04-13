@@ -1,6 +1,6 @@
 const fs = require("fs");
 // Read json from functionalCorpus
-functionalCorpus = JSON.parse(fs.readFileSync("./corpus/functionalCorpus.json", "utf-8"));
+functionalCorpus = JSON.parse(fs.readFileSync("../corpus/functionalCorpus.json", "utf-8"));
 
 // Push every word in every document into mergedWords
 var mergedWords = [];
@@ -48,22 +48,17 @@ wordList.forEach((word) => {
 });
 
 // Write word map
-fs.writeFile(
-  "./documentFunctions/wordMap.json",
-  JSON.stringify(wordMap, null, 1),
-  "utf8",
-  (err) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log("word map generated");
+fs.writeFile("../corpus/DocumentWordMap.json", JSON.stringify(wordMap, null, 1), "utf8", (err) => {
+  if (err) {
+    console.error(err);
+    return;
   }
-);
+  console.log("word map generated");
+});
 
 // Write word map TFIDF
 fs.writeFile(
-  "./documentFunctions/wordMapTFIDF.json",
+  "../corpus/DocumentWordMapTFIDF.json",
   JSON.stringify(wordMapTFIDF, null, 2),
   "utf8",
   (err) => {

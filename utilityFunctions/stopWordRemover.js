@@ -1,4 +1,4 @@
-const Stem = require("../Stemmer").Stem;
+const Stem = require("./Stemmer").Stem;
 stop_word_list = [
   "ላይ",
   "ነው",
