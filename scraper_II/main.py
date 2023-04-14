@@ -8,8 +8,8 @@ import sports
 
 if __name__ == '__main__':
     ethiopianReporter.main()
-    # health.main()
-    # ketarikMahder.main()
-    # kinetibeb.main()
-    # news.main()
-    # sports.main()
+    health.main()
+    ketarikMahder.main()
+    kinetibeb.main()
+    news.main()
+    sports.main()
