@@ -1,3 +1,4 @@
+import ethiopianReporter
 import health
 import ketarikMahder
 import kinetibeb
@@ -6,9 +7,9 @@ import sports
 
 
 if __name__ == '__main__':
-    health.main()
-    ketarikMahder.main()
-    kinetibeb.main()
-    news.main()
-    sports.main()
-    
+    ethiopianReporter.main()
+    # health.main()
+    # ketarikMahder.main()
+    # kinetibeb.main()
+    # news.main()
+    # sports.main()
