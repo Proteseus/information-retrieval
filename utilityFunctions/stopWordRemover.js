@@ -330,8 +330,8 @@ const getPrunedText = (text) => {
   for (word of text) stemmedText.push(Stem(word));
 
   // Return raw or stemmed document
-  // return stemmedText;
-  return text;
+  return stemmedText;
+  // return text;
 };
 const PruneCorpus = (corpus) => {
   corpus.forEach((document, index) => {

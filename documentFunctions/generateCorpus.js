@@ -4,11 +4,14 @@ const PruneCorpus = require("../utilityFunctions/stopWordRemover").PruneCorpus;
 var pressRelease = JSON.parse(fs.readFileSync("./corpus/ScrappedPressRelease.json", "utf-8"));
 
 // Generate display corpus {id,title,link}
-const displayCorpus = pressRelease.map(({ title, url, category }, index) => ({
+const displayCorpus = pressRelease.map(({ title, url, category, story, author, date }, index) => ({
   id: index,
+  story: story.slice(0, 250),
   title,
   category,
   link: url,
+  author,
+  date,
 }));
 
 // Generate functional corpus {id, index}

@@ -80,6 +80,5 @@ matchedDocuments = [];
 GetMatch().forEach((match) => {
   matchedDocuments.push(displayCorpus[match[0]]);
 });
-console.log(matchedDocuments.splice(0, 5));
 
 module.exports = GetMatch;
