@@ -26,6 +26,10 @@ const GenerateQueryMap = (query) => {
       console.error(err);
       return;
     }
+    console.log("Query map generated");
   });
 };
+
+// Enter Sample Query
+GenerateQueryMap("የአዲስ አበባን የውኃ ችግር");
 module.exports = GenerateQueryMap;

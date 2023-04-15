@@ -297,6 +297,9 @@ stop_word_list = [
   "መልካም",
 ];
 
+const Multiwords = ["ስነ ልቦናዊ"];
+
+const multiWordsPattern = new RegExp("\\b(" + Multiwords.join("|") + ")\\b", "g");
 const signs = new RegExp("[“…=,.+<>’—”–!?()|:፡።‹›፣፤-]", "g");
 const multipleSpaces = new RegExp("\\s+", "g");
 const englishWords = new RegExp("[a-zA-Z]+", "g");
@@ -316,6 +319,8 @@ const getPrunedText = (text) => {
   // Prune numbers except date
   text = text.replace(numberExceptDate, "");
 
+  text = text.replace(multiWordsPattern, (match, p1) => p1.replace(/\s+/g, "_"));
+
   //   Remove stop words and single characters
   splittedText = text.split(" ");
   text = splittedText.filter((word) => !stop_word_list.includes(word) && word.length > 1);
@@ -324,7 +329,9 @@ const getPrunedText = (text) => {
   stemmedText = [];
   for (word of text) stemmedText.push(Stem(word));
 
-  return stemmedText;
+  // Return raw or stemmed document
+  // return stemmedText;
+  return text;
 };
 const PruneCorpus = (corpus) => {
   corpus.forEach((document, index) => {

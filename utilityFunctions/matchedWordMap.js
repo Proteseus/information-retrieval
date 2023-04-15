@@ -1,4 +1,6 @@
 const fs = require("fs");
+// Get Functional Corpus
+displayCorpus = JSON.parse(fs.readFileSync("./corpus/displayCorpus.json", "utf-8"));
 
 const GetMatch = () => {
   query = JSON.parse(fs.readFileSync("./corpus/QueryWordMap.json", "utf-8"));
@@ -72,4 +74,12 @@ const GetMatch = () => {
 
   return similarityMap;
 };
+
+// Get matched documents
+matchedDocuments = [];
+GetMatch().forEach((match) => {
+  matchedDocuments.push(displayCorpus[match[0]]);
+});
+console.log(matchedDocuments.splice(0, 5));
+
 module.exports = GetMatch;
