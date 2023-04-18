@@ -8,8 +8,9 @@ const SearchQuery = (query, setDocument) => {
     .catch((error) => console.error(error));
 };
 
-export default function Search({ setDocument }) {
+export default function Search({ setDocument, SetSortbyDate }) {
   const query = useRef();
+  const sortByDate = useRef();
   return (
     <div className="flex justify-center">
       <div className="flex justify-between w-2/4 p-3 mt-10 border rounded-lg">
@@ -25,6 +26,16 @@ export default function Search({ setDocument }) {
         >
           Search
         </button>
+        <select
+          ref={sortByDate}
+          onChange={() => {
+            SetSortbyDate(sortByDate.current.value);
+          }}
+          className="px-2 ml-2 bg-white border border-red-700 rounded-lg focus:outline-none"
+        >
+          <option value="false">Sort By Relevance</option>
+          <option value="true">Sort By Date</option>
+        </select>
       </div>
     </div>
   );

@@ -25,8 +25,6 @@ const GetMatch = () => {
     else TFIDFMap[queryWord] = { Q: 0 };
   }
 
-  // console.log(TFIDFMap);
-
   // Get count of total documents
   var sampleWord = Object.keys(wordMap)[0];
   var documentCount = Object.keys(wordMap[sampleWord]).length - 2;
