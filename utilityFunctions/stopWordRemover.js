@@ -149,10 +149,52 @@ stop_word_list = [
   "ኧህ",
 ];
 
-const Multiwords = ["ስነ ልቦናዊ"];
+common_amh_abbreviations = {
+  ትቤት: "ትምህርትቤት",
+  ትርት: "ትምህርት",
+  ትክፍል: "ትምህርትክፍል",
+  ሃአለቃ: "ሃምሳአለቃ",
+  ሃስላሴ: "ሃይለስላሴ",
+  ደዘይት: "ደብረዘይት",
+  ደታቦር: "ደብረታቦር",
+  መር: "መምህር",
+  መቤት: "መስሪያቤት",
+  መአለቃ: "መቶአለቃ",
+  ክከተማ: "ክፍለከተማ",
+  ክሀገር: "ክፍለሀገር",
+  ወር: "",
+  ወሮ: "ወይዘሮ",
+  ወሪት: "ወይዘሪት",
+  ወስላሴ: "ወልደስላሴ",
+  ፍስላሴ: "ፍቅረስላሴ",
+  ፍቤት: "ፍርድቤት",
+  ጽቤት: "ጽህፈትቤት",
+  ሲር: "",
+  ፕር: "ፕሮፌሰር",
+  ጠሚንስትር: "ጠቅላይሚኒስተር",
+  ዶር: "ዶክተር",
+  ገገዮርጊስ: "",
+  ቤክርስትያን: "ቤተክርስትያን",
+  ምስራ: "",
+  ምቤት: "ምክርቤተ",
+  ተሃይማኖት: "ተክለሃይማኖት",
+  ሚር: "ሚኒስትር",
+  ኮል: "ኮሎኔል",
+  ሜጀነራል: "ሜጀርጀነራል",
+  ብጀነራል: "ብርጋደርጀነራል",
+  ሌኮለኔል: "ሌተናንትኮለኔል",
+  ሊመንበር: "ሊቀመንበር",
+  አአ: "ኣዲስኣበባ",
+  ርመምህር: "ርዕሰመምህር",
+  ፕት: "",
+  ዓም: "ዓመተምህረት",
+  ዓዓ: "ዓመተዓለም",
+};
 
-// const multiWordsPattern = new RegExp("\\b(" + Multiwords.join("|") + ")\\b", "g");
-const signs = new RegExp("[“…=,.+<>’—”–!?()|:፡።‹›፣፤-]", "g");
+const Multiwords = { "ስነ ልቦናዊ": "ስነልቦናዊ" };
+const firstWordsofMultiWords = ["ስነ"];
+
+const signs = new RegExp("[“…=,.+/<>’—”–!?()|:፡።‹›፣፤-]", "g");
 const multipleSpaces = new RegExp("\\s+", "g");
 const englishWords = new RegExp("[a-zA-Z]+", "g");
 const numberExceptDate = new RegExp(
@@ -177,13 +219,31 @@ const getPrunedText = (text) => {
   splittedText = text.split(" ");
   text = splittedText.filter((word) => !stop_word_list.includes(word) && word.length > 1);
 
+  // Merge Mulit-Words
+  var prev;
+  text = text.map((word, index) => {
+    if (!index == 0) {
+      if (Multiwords[`${text[index - 1]} ${text[index]}`])
+        return Multiwords[`${text[index - 1]} ${text[index]}`];
+      return word;
+    }
+  });
+  text.shift();
+  text = text.filter((word) => !firstWordsofMultiWords.includes(word));
+
+  // Spread abbreviations
+  text = text.map((word) => {
+    if (common_amh_abbreviations[word]) return common_amh_abbreviations[word];
+    return word;
+  });
+
   // Stem text
   stemmedText = [];
   for (word of text) stemmedText.push(Stem(word));
 
   // Return raw or stemmed document
-  return stemmedText;
-  // return text;
+  // return stemmedText;
+  return text;
 };
 const PruneCorpus = (corpus) => {
   corpus.forEach((document, index) => {
